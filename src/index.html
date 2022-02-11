@@ -1,8 +1,26 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title></title>
-</head>
-<body>
-</body>
+  <head>
+    <title>Currency Exchanger</title>
+  </head>
+  <body>
+    <div id="converter-box">
+      <form id="converter">
+        <div class="form-group">
+          <label for="amount">Amount</label>
+          <input type="number" id="value" min="0" required />
+          <div class="amount-error"></div>
+        </div>
+        <div class="form-group">
+          <label for="currency-from">From</label>
+          <select id="currency-from"></select>
+        </div>
+        <div class="form-group">
+          <label for="currency-to">To</label>
+          <select id="currency-to"></select>
+        </div>
+        <button type="submit">Convert</button>
+      </form>
+    </div>
+  </body>
 </html>
