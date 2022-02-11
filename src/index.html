@@ -4,10 +4,12 @@
     <title>Currency Exchanger</title>
   </head>
   <body>
+    <h1>Currency Exchanger</h1>
     <div id="converter-box">
       <form id="converter">
         <div class="form-group">
           <label for="amount">Amount</label>
+          <span id="currency-symbol">$</span>
           <input type="number" id="value" min="0" step="0.0001" required />
           <div class="amount-error"></div>
         </div>
@@ -22,8 +24,24 @@
         <button type="submit">Convert</button>
       </form>
       <div id="result">
-        <p><span id="res-amount-from"></span> <span id="res-currency-from"></span> =</p>
-        <p><span id="res-amount-to"></span> <span id="res-currency-to"></span></p>
+        <p class="from">
+          <span class="res-amount-from"></span>
+          <span class="res-currency-from"></span> =
+        </p>
+        <p class="to">
+          <span class="res-amount-to"></span>
+          <span class="res-currency-to"></span>
+        </p>
+        <p class="rates">
+          1 <span class="res-currency-from"></span> =
+          <span class="rate-to"></span>
+          <span class="res-currency-to"></span>
+        </p>
+        <p class="rates">
+          1 <span class="res-currency-to"></span> =
+          <span class="rate-from"></span>
+          <span class="res-currency-from"></span>
+        </p>
       </div>
     </div>
   </body>
