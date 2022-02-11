@@ -1,6 +1,7 @@
 import $ from "jquery";
 import "./css/styles.css";
 import Currency from "./js/currency.js";
+import getSymbolFromCurrency from "currency-symbol-map";
 
 async function makeApiCall() {
   const response = await Currency.getCurrency();
@@ -26,6 +27,10 @@ function roundNum(num, decimal) {
   return num;
 }
 
+function showCurrencySymbol(currency) {
+  return getSymbolFromCurrency(currency);
+}
+
 $(document).ready(function () {
   makeApiCall();
   $("form#converter").submit(function (event) {
@@ -38,11 +43,17 @@ $(document).ready(function () {
     const rate = roundNum(rateTo / rateFrom, 4);
     const valueTo = valueFrom * rate;
 
-    $(".res-amount-from").html(valueFrom);
+    $(".res-amount-from").html(roundNum(valueFrom, 4));
     $(".res-currency-from").html(currencyFrom);
-    $(".res-amount-to").html(valueTo);
+    $(".res-amount-to").html(roundNum(valueTo, 4));
     $(".res-currency-to").html(currencyTo);
     $(".rate-to").html(rate);
     $(".rate-from").html(roundNum(1 / rate, 4));
+  });
+
+  $("#currency-from").on("change", function () {
+    const currencyFrom = $("option[name='currency-from']:selected").val();
+    const currencySymbol = showCurrencySymbol(currencyFrom);
+    $("#currency-symbol").html(currencySymbol);
   });
 });
