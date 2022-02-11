@@ -1,6 +1,5 @@
 import $ from "jquery";
 import "./css/styles.css";
-import Template from "./js/template.js";
+import Currency from "./js/currency.js";
 
-$(document).ready(function () {
-});
+$(document).ready(function () {});
