@@ -14,6 +14,8 @@
 - Eslint
 - Babel
 - Popper
+- currency-symbol-map
+- country-flag-icons
 
 ## Description
 
@@ -34,14 +36,17 @@ Currency Exchanger converts value in USD to the chosen currency. A user can type
      ~/Desktop $ cd currency-exchanger
      ```
   3. Get API key:
-     - Instructions
+     - Visit the [ExchangeRate-API](https://www.exchangerate-api.com/) site. Input your email address and click the "Get Free Key" button.
+     - You will be prompted to create an account with your email, first name and a password. Agree to the terms of use and click "Get Started!"
+     - You will get an email with activation link. Click the link in the email.
+     - Get to the [Dashboard](https://app.exchangerate-api.com/dashboard), and copy your API key.
   4. Create .env file with your API key:
      ```
       ~/Desktop/currency-exchanger $ touch .env
       ~/Desktop/currency-exchanger $ echo "API_KEY={YOUR API KEY}" > .env
      ```
      Replace {YOUR API KEY} with your API key, remove curly brackets.
-  5. Add ".env" to the .gitignore file
+  5. Make sure you have ".env" in your .gitignore file. If not, typing following command in your command line:
      ```
       ~/Desktop/currency-exchanger $ echo ".env" >> .gitignore
      ```
