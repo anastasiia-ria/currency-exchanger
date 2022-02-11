@@ -16,6 +16,8 @@ function getElements(response) {
       $("#currency-to").append(`<option name="currency-to" value="${key}">${key}</option>`);
       sessionStorage.setItem(key, conversionRates[key]);
     }
+    $("#currency-from option[value='USD']").prop("selected", true);
+    $("#currency-to option[value='EUR']").prop("selected", true);
   } else {
     $(".showErrors").text(`There was an error: ${response}`);
   }
@@ -55,5 +57,12 @@ $(document).ready(function () {
     const currencyFrom = $("option[name='currency-from']:selected").val();
     const currencySymbol = showCurrencySymbol(currencyFrom);
     $("#currency-symbol").html(currencySymbol);
+  });
+
+  $("#exchange").click(function () {
+    const currencyFrom = $("option[name='currency-from']:selected").val();
+    const currencyTo = $("option[name='currency-to']:selected").val();
+    $(`#currency-from option[value=${currencyTo}]`).prop("selected", true);
+    $(`#currency-to option[value=${currencyFrom}]`).prop("selected", true);
   });
 });
