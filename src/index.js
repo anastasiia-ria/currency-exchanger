@@ -20,6 +20,12 @@ function getElements(response) {
   }
 }
 
+function roundNum(num, decimal) {
+  let i = 10 ** decimal;
+  num = Math.round(num * i) / i;
+  return num;
+}
+
 $(document).ready(function () {
   makeApiCall();
   $("form#converter").submit(function (event) {
@@ -29,7 +35,7 @@ $(document).ready(function () {
     const currencyTo = $("option[name='currency-to']:selected").val();
     const rateTo = sessionStorage.getItem(currencyTo);
     const rateFrom = sessionStorage.getItem(currencyFrom);
-    const rate = rateTo / rateFrom;
+    const rate = roundNum(rateTo / rateFrom, 4);
     const valueTo = valueFrom * rate;
 
     $(".res-amount-from").html(valueFrom);
@@ -37,6 +43,6 @@ $(document).ready(function () {
     $(".res-amount-to").html(valueTo);
     $(".res-currency-to").html(currencyTo);
     $(".rate-to").html(rate);
-    $(".rate-from").html(1 / rate);
+    $(".rate-from").html(roundNum(1 / rate, 4));
   });
 });
