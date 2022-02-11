@@ -10,7 +10,9 @@ async function makeApiCall() {
 }
 
 function getElements(response) {
-  if (response) {
+  if (response.result === "error") {
+    $(".showErrors").html(`There was an error: ${response["error-type"]}`);
+  } else if (response) {
     const conversionRates = response.conversion_rates;
     for (let key in conversionRates) {
       let output = getCountryFlag(key) + key;
@@ -21,7 +23,7 @@ function getElements(response) {
     $("#currency-from option[value='USD']").prop("selected", true);
     $("#currency-to option[value='EUR']").prop("selected", true);
   } else {
-    $(".showErrors").text(`There was an error: ${response}`);
+    $(".showErrors").html(`There was an error: ${response}`);
   }
 }
 
