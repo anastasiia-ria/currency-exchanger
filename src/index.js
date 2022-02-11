@@ -2,6 +2,7 @@ import $ from "jquery";
 import "./css/styles.css";
 import Currency from "./js/currency.js";
 import getSymbolFromCurrency from "currency-symbol-map";
+import { hasFlag } from "country-flag-icons";
 
 async function makeApiCall() {
   const response = await Currency.getCurrency();
@@ -12,8 +13,9 @@ function getElements(response) {
   if (response) {
     const conversionRates = response.conversion_rates;
     for (let key in conversionRates) {
-      $("#currency-from").append(`<option name="currency-from" value="${key}">${key}</option>`);
-      $("#currency-to").append(`<option name="currency-to" value="${key}">${key}</option>`);
+      let output = getCountryFlag(key) + key;
+      $("#currency-from").append(`<option name="currency-from" value="${key}">${output}</option>`);
+      $("#currency-to").append(`<option name="currency-to" value="${key}">${output}</option>`);
       sessionStorage.setItem(key, conversionRates[key]);
     }
     $("#currency-from option[value='USD']").prop("selected", true);
@@ -29,8 +31,21 @@ function roundNum(num, decimal) {
   return num;
 }
 
-function showCurrencySymbol(currency) {
+function getCurrencySymbol(currency) {
   return getSymbolFromCurrency(currency);
+}
+
+function getCountryFlag(currency) {
+  const codePoints = currency
+    .substr(0, 2)
+    .toUpperCase()
+    .split("")
+    .map((char) => 127397 + char.charCodeAt());
+  if (hasFlag(currency.substr(0, 2))) {
+    return String.fromCodePoint(...codePoints) + " ";
+  } else {
+    return "";
+  }
 }
 
 $(document).ready(function () {
@@ -45,6 +60,7 @@ $(document).ready(function () {
     const rate = roundNum(rateTo / rateFrom, 4);
     const valueTo = valueFrom * rate;
 
+    $("#result").slideDown();
     $(".res-amount-from").html(roundNum(valueFrom, 4));
     $(".res-currency-from").html(currencyFrom);
     $(".res-amount-to").html(roundNum(valueTo, 4));
@@ -55,7 +71,7 @@ $(document).ready(function () {
 
   $("#currency-from").on("change", function () {
     const currencyFrom = $("option[name='currency-from']:selected").val();
-    const currencySymbol = showCurrencySymbol(currencyFrom);
+    const currencySymbol = getCurrencySymbol(currencyFrom);
     $("#currency-symbol").html(currencySymbol);
   });
 
