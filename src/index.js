@@ -52,6 +52,9 @@ function getCountryFlag(currency) {
 
 $(document).ready(function () {
   makeApiCall();
+  $("select").selectize({
+    sortField: "text",
+  });
   $("form#converter").submit(function (event) {
     event.preventDefault();
     const valueFrom = parseFloat($("input#value").val());
