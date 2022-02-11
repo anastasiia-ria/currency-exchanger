@@ -7,25 +7,25 @@
     <h1>Currency Exchanger</h1>
     <div id="converter-box">
       <form id="converter">
-        <div class="form-group">
-          <label for="amount">Amount</label>
-          <span id="currency-symbol">$</span>
-          <input type="number" id="value" min="0" step="0.0001" required />
-          <div class="amount-error"></div>
-        </div>
-        <div class="form-group">
-          <label for="currency-from">From</label>
-          <select id="currency-from"></select>
-        </div>
-        <div class="form-group">
+        <div id="input-group">
+          <div class="form-group">
+            <label for="amount">Amount</label>
+            <span id="currency-symbol">$</span>
+            <input type="number" id="value" min="0" step="0.0001" required />
+          </div>
+          <div class="form-group">
+            <label for="currency-from">From</label>
+            <select id="currency-from" onfocus="this.size=7;" onblur="this.size=1;" onchange="this.size=1; this.blur();"></select>
+          </div>
           <div id="exchange"></div>
-        </div>
-        <div class="form-group">
-          <label for="currency-to">To</label>
-          <select id="currency-to"></select>
+          <div class="form-group">
+            <label for="currency-to">To</label>
+            <select id="currency-to" onfocus="this.size=7;" onblur="this.size=1;" onchange="this.size=1; this.blur();"></select>
+          </div>
         </div>
         <button type="submit">Convert</button>
       </form>
+      <div class="showErrors"></div>
       <div id="result">
         <p class="from">
           <span class="res-amount-from"></span>
