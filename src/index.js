@@ -15,7 +15,7 @@ function getElements(response) {
   } else if (response) {
     const conversionRates = response.conversion_rates;
     for (let key in conversionRates) {
-      let output = getCountryFlag(key) + key;
+      let output = `${key}&nbsp&nbsp&nbsp${getCountryFlag(key)}`;
       $("#currency-from").append(`<option name="currency-from" value="${key}">${output}</option>`);
       $("#currency-to").append(`<option name="currency-to" value="${key}">${output}</option>`);
       sessionStorage.setItem(key, conversionRates[key]);
@@ -33,8 +33,9 @@ function roundNum(num, decimal) {
   return num;
 }
 
-function getCurrencySymbol(currency) {
-  return getSymbolFromCurrency(currency);
+function showCurrencySymbol(currency) {
+  let symbol = getSymbolFromCurrency(currency);
+  $("#currency-symbol").html(symbol);
 }
 
 function getCountryFlag(currency) {
@@ -44,7 +45,7 @@ function getCountryFlag(currency) {
     .split("")
     .map((char) => 127397 + char.charCodeAt());
   if (hasFlag(currency.substr(0, 2))) {
-    return String.fromCodePoint(...codePoints) + " ";
+    return String.fromCodePoint(...codePoints);
   } else {
     return "";
   }
@@ -52,9 +53,7 @@ function getCountryFlag(currency) {
 
 $(document).ready(function () {
   makeApiCall();
-  $("select").selectize({
-    sortField: "text",
-  });
+
   $("form#converter").submit(function (event) {
     event.preventDefault();
     const valueFrom = parseFloat($("input#value").val());
@@ -76,8 +75,7 @@ $(document).ready(function () {
 
   $("#currency-from").on("change", function () {
     const currencyFrom = $("option[name='currency-from']:selected").val();
-    const currencySymbol = getCurrencySymbol(currencyFrom);
-    $("#currency-symbol").html(currencySymbol);
+    showCurrencySymbol(currencyFrom);
   });
 
   $("#exchange").click(function () {
@@ -85,5 +83,6 @@ $(document).ready(function () {
     const currencyTo = $("option[name='currency-to']:selected").val();
     $(`#currency-from option[value=${currencyTo}]`).prop("selected", true);
     $(`#currency-to option[value=${currencyFrom}]`).prop("selected", true);
+    showCurrencySymbol(currencyTo);
   });
 });
