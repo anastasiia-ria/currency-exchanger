@@ -51,8 +51,29 @@ function getCountryFlag(currency) {
   }
 }
 
+function attachListeners() {
+  $("#currency-from").on("change", function () {
+    const currencyFrom = $("option[name='currency-from']:selected").val();
+    showCurrencySymbol(currencyFrom);
+  });
+
+  $("select").on("click", "option", function () {
+    $(this).parent().size = 1;
+    $(this).parent().blur();
+  });
+
+  $("#exchange").click(function () {
+    const currencyFrom = $("option[name='currency-from']:selected").val();
+    const currencyTo = $("option[name='currency-to']:selected").val();
+    $(`#currency-from option[value=${currencyTo}]`).prop("selected", true);
+    $(`#currency-to option[value=${currencyFrom}]`).prop("selected", true);
+    showCurrencySymbol(currencyTo);
+  });
+}
+
 $(document).ready(function () {
   makeApiCall();
+  attachListeners();
 
   $("form#converter").submit(function (event) {
     event.preventDefault();
@@ -71,18 +92,5 @@ $(document).ready(function () {
     $(".res-currency-to").html(currencyTo);
     $(".rate-to").html(rate);
     $(".rate-from").html(roundNum(1 / rate, 4));
-  });
-
-  $("#currency-from").on("change", function () {
-    const currencyFrom = $("option[name='currency-from']:selected").val();
-    showCurrencySymbol(currencyFrom);
-  });
-
-  $("#exchange").click(function () {
-    const currencyFrom = $("option[name='currency-from']:selected").val();
-    const currencyTo = $("option[name='currency-to']:selected").val();
-    $(`#currency-from option[value=${currencyTo}]`).prop("selected", true);
-    $(`#currency-to option[value=${currencyFrom}]`).prop("selected", true);
-    showCurrencySymbol(currencyTo);
   });
 });
