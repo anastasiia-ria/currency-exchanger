@@ -1,6 +1,6 @@
 # Currency Exchanger
 
-#### Converts value in USD to the chosen currency
+#### Converts currency between all available currency types
 
 #### By Anastasiia Riabets
 
@@ -19,7 +19,7 @@
 
 ## Description
 
-Currency Exchanger converts value in USD to the chosen currency. A user can type in an amount (in U.S. dollars) and then choose which currency it should be converted to (such as francs, marks, rupees, and so on).
+Currency Exchanger converts currency between all available currency types. A user can type in an amount and then choose which currency it should be converted from and to (such as francs, marks, rupees, and so on).
 
 ## Setup/Installation Requirements
 
@@ -46,7 +46,7 @@ Currency Exchanger converts value in USD to the chosen currency. A user can type
       ~/Desktop/currency-exchanger $ echo "API_KEY={YOUR API KEY}" > .env
      ```
      Replace {YOUR API KEY} with your API key, remove curly brackets.
-  5. Make sure you have ".env" in your .gitignore file. If not, typing following command in your command line:
+  5. Make sure you have ".env" in your .gitignore file. If not, type following command in your command line:
      ```
       ~/Desktop/currency-exchanger $ echo ".env" >> .gitignore
      ```
@@ -70,7 +70,7 @@ Currency Exchanger converts value in USD to the chosen currency. A user can type
 
 ## Known Bugs
 
--
+- Layout is not adjusted for the small screens
 
 ## License
 
